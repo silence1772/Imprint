@@ -1,14 +1,11 @@
 package main
 
 import (
-    "log"
     "gopkg.in/mgo.v2"
     "gopkg.in/mgo.v2/bson"
 )
 
 var (
-    //currentId int
-    //todos Todos
     records Records
     mgoSession *mgo.Session
 )
@@ -22,54 +19,27 @@ func init() {
     }
     mgoSession = session
     mgoSession.SetMode(mgo.Monotonic, true)
-    
-    // Give us some seed data
-    //RepoCreateTodo(Todo{Name: "Write presentation"})
-    //RepoCreateTodo(Todo{Name: "Host meetup"})
-    //RepoCreateTodo(Record{Lon: 123.5, Lat: 24.7, Category: 1, OpenId: "sdss"})
 }
 
-// func RepoFindTodo(id int) Record {
-//     for _, t := range records {
-//         if t.Id == id {
-//             return t
-//         }
-//     }
-//     // return empty Todo if not found
-//     return Record{}
-// }
 
-func RepoCreateTodo(record Record) Record {
-    //currentId += 1
-    // t.Id = currentId
-    // records = append(records, t)
-
-    // test := new(Position)
-    // test.Status = 1
-    // test.Msg = "OK"
-    // test.Data.Status = 1
-    // test.Data.Bikelist = append(test.Data.Bikelist, Bikelist{Lon: 123, Lat: 24})
-
+func RepoCreateRecord(record Record) Record {
     // insert data to Collection
     session := mgoSession.Copy()
     defer session.Close()
     err := session.DB("local").C("records").Insert(record)
     if err != nil {
-        log.Fatal(err)
+
     }
 
     return record
 }
 
 func RepoCreateComment(comment CommentItem) CommentItem {
-    //selector := bson.M{"_id": bson.ObjectIdHex(mainid)}
-    //data := bson.M{"$push": bson.M{"comment": comment}}
-
     session := mgoSession.Copy()
     defer session.Close()
     err := session.DB("local").C("comments").Insert(comment)
     if err != nil {
-        log.Fatal(err)
+
     }
     return comment
 }
@@ -82,20 +52,10 @@ func RepoCreateReply(reply ReplyItem, commentid string) ReplyItem {
     defer session.Close()
     err := session.DB("local").C("comments").Update(selector, data)
     if err != nil {
-        log.Fatal(err)
+
     }
     return reply
 }
-
-// func RepoDestroyTodo(id int) error {
-//     for i, t := range records {
-//         if t.Id == id {
-//             records = append(records[:i], records[i+1:]...)
-//             return nil
-//         }
-//     }
-//     return fmt.Errorf("Could not find Todo with id of %d to delete", id)
-// }
 
 func RepoFindNearbyRecords(lon float64, lat float64) Records {
     var recordsNearby Records
@@ -103,12 +63,12 @@ func RepoFindNearbyRecords(lon float64, lat float64) Records {
     // query terms
     m := bson.M {
         "lon": bson.M {
-            "$gte": lon - 0.002,
-            "$lte": lon + 0.002,
+            "$gte": lon - 0.01,
+            "$lte": lon + 0.01,
         },
         "lat": bson.M {
-            "$gte": lat - 0.002,
-            "$lte": lat + 0.002,
+            "$gte": lat - 0.01,
+            "$lte": lat + 0.01,
         },
     }
     // find in database
@@ -116,7 +76,9 @@ func RepoFindNearbyRecords(lon float64, lat float64) Records {
     defer session.Close()
     iter := session.DB("local").C("records").Find(m).Iter()
     for iter.Next(&record) {
-        recordsNearby = append(recordsNearby, record)
+        if record.Content != "<mys>" {
+            recordsNearby = append(recordsNearby, record)
+        }
     }
 
     defaultId := "5b1299036f6eac643837477d"
@@ -176,10 +138,10 @@ func RepoFindRecord(id string) Record {
     session := mgoSession.Copy()
     defer session.Close()
     if err := session.DB("local").C("records").Update(m, data); err != nil {
-        log.Fatal(err)
+
     }
     if err := session.DB("local").C("records").Find(m).One(&record); err != nil {
-        log.Fatal(err)
+        
     }
     return record
 }
@@ -190,7 +152,6 @@ func RepoDeleteRecord(id string) bool {
     session := mgoSession.Copy()
     defer session.Close()
     if err := session.DB("local").C("records").Remove(m); err != nil {
-        log.Fatal(err)
         return false
     }
     return true
@@ -222,7 +183,7 @@ func RepoCreateStar(openid string, mainid string) bool{
             star.OpenId = openid
             star.StarList = append(star.StarList, mainid)
             if err := session.DB("local").C("stars").Insert(star); err != nil {
-                log.Fatal(err)
+
             } else {
                 return true
             }
@@ -240,7 +201,7 @@ func RepoCancelStar(openid string, mainid string) bool {
     session := mgoSession.Copy()
     defer session.Close()
     if err := session.DB("local").C("stars").Update(m, data); err != nil {
-        log.Fatal(err)
+
         return false
     }
     return true

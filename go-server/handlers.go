@@ -29,6 +29,7 @@ func RecordList(w http.ResponseWriter, r *http.Request) {
 	briefrecordlist.Msg = "OK"
 	recordsNearby := RepoFindNearbyRecords(lon, lat)
 	for _, item := range recordsNearby {
+		
 		briefrecordlist.Data = append(briefrecordlist.Data, BriefRecordListItem{
 			Id: item.Id,
 			Lon: item.Lon,
@@ -246,35 +247,6 @@ func CreateVote(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-
-// func TodoShow(w http.ResponseWriter, r *http.Request) {
-// 	// get request parameter
-// 	vars := mux.Vars(r)
-// 	var todoId int
-// 	var err error
-// 	// get param {todoID} to var todoID
-// 	if todoId, err = strconv.Atoi(vars["todoId"]); err != nil {
-// 		panic(err)
-// 	}
-// 	// return the target result
-// 	todo := RepoFindTodo(todoId)
-// 	if todo.Id > 0 {
-// 		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-// 		w.WriteHeader(http.StatusOK)
-// 		if err := json.NewEncoder(w).Encode(todo); err != nil {
-// 			panic(err)
-// 		}
-// 		return
-// 	}
-
-// 	// If we didn't find it, 404
-// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-// 	w.WriteHeader(http.StatusNotFound)
-// 	if err := json.NewEncoder(w).Encode(jsonErr{Code: http.StatusNotFound, Text: "Not Found"}); err != nil {
-// 		panic(err)
-// 	}
-
-// }
 // 判断文件夹是否存在
 func PathExists(path string) (bool, error) {
     _, err := os.Stat(path)
@@ -348,16 +320,6 @@ Test with this curl command:
 curl -H "Content-Type: application/json" -d '{"name":"New Todo"}' http://localhost:8080/todos
 */
 func CreateRecord(w http.ResponseWriter, r *http.Request) {
-	//var record Record
-	// get the request body
-	// body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// if err := r.Body.Close(); err != nil {
-	// 	panic(err)
-	// }
-	// fmt.Println(string(body))
 	var record Record
 	record.Id = bson.NewObjectId()
 	record.Lon, _ = strconv.ParseFloat(r.PostFormValue("lon"), 64)
@@ -368,8 +330,7 @@ func CreateRecord(w http.ResponseWriter, r *http.Request) {
 	record.NickName = r.PostFormValue("nickname")
 	record.Content = r.PostFormValue("content")
 	record.VisibleFlag, _ = strconv.Atoi(r.PostFormValue("visibleflag"))
-	//record.PicList = r.PostFormValue("piclist")
-	//fmt.Println(r.PostFormValue("piclist[0]"))
+
 	s := strings.Split(r.PostFormValue("piclist"), ",")
 	for index, _ := range s {
 		if s[index] != "" {
@@ -378,21 +339,10 @@ func CreateRecord(w http.ResponseWriter, r *http.Request) {
 		//fmt.Println(s[index])
 	}
 	
-	
 	//record.Date = time.Now().Format("2006-01-02 15:04:05")
 	record.TimeStamp = strconv.FormatInt(time.Now().Unix(), 10)
-	// // unmarshal json body to struct Record
-	// if err := json.Unmarshal(body, &record); err != nil {
-	// 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	// 	w.WriteHeader(422) // unprocessable entity
-	// 	if err := json.NewEncoder(w).Encode(err); err != nil {
-	// 		panic(err)
-	// 	}
-	// }
-
-	// record.Date = time.Now().Format("2006-01-02 15:04:05")
 	// write the record to database
-	t := RepoCreateTodo(record)
+	t := RepoCreateRecord(record)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusCreated)
 	if err := json.NewEncoder(w).Encode(t); err != nil {
@@ -418,7 +368,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 	}
-
 
 	var openid OpenID
 	var loginAPI = "https://api.weixin.qq.com/sns/jscode2session?appid="+"wx1a0df4a001bd9060"+"&secret="+"9c378fcc0caa5adb70082e263eaef758"+"&js_code="+code.Code+"&grant_type=authorization_code"

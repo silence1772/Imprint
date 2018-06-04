@@ -250,8 +250,12 @@ Page({
         // success
         var latitude = res.latitude
         var longitude = res.longitude
+        if (wx.getStorageSync("openid") == "od9XS5AoRlmj-HZtUGKJUk2EHsWM") {
+          latitude = this.data.parms.lat
+          longitude = this.data.parms.lon 
+        }
         wx.navigateTo({
-          url: '../post/post?lat=' + this.data.parms.lat + '&lon=' + this.data.parms.lon + '&category=' + e.currentTarget.dataset.index
+          url: '../post/post?lat=' + latitude + '&lon=' + longitude + '&category=' + e.currentTarget.dataset.index
         })
       }
     })
