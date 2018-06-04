@@ -1,0 +1,42 @@
+<!--index.wxml-->
+<!--地图-->
+<map id="map" longitude="{{point.longitude}}" latitude="{{point.latitude}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height: 70%;"></map>
+<view class="footer">
+  <!--遮罩层-->
+  <view hidden="{{maskLayerHidden}}" class="mask-layer" catch:tap="hiddenMask" catch:touchmove="doNothing">
+    <view class="nav">
+      <block wx:for="{{navItem}}" wx:key="">
+        <view class="nav-item" data-index="{{index}}" catch:tap="gotoPost">
+          <image src="{{item.iconUrl}}" class="nav-icon"></image>
+          <text style="font-size: 16px;color:#616161;">{{item.text}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!--内容层-->
+  <scroll-view class="scroll-view_H" scroll-x="true" scroll-into-view="{{resetScrollView}}" scroll-with-animation="true">
+    <block wx:for="{{cards}}" wx:key="unique">
+      <view class="scroll-view_H-item margin-left" data-index="{{index}}" data-id="{{item.id}}" data-visibleflag="{{item.visibleflag}}" data-lat="{{item.lat}}" data-lon="{{item.lon}}" id="{{index==0?'first':''}}" bind:tap="gotoDetail" bind:longpress="displayPosition"
+        style="margin-top: {{marginTop}}px;">
+        <view class="card-item">
+          <view class="card-musk" hidden="{{item.visibleflag==0}}">
+            <view>该印迹已设置为仅附近可见</view>
+          </view>
+          <view class="user-info">
+            <image class="user-avator" src="{{item.userAvatar}}"></image>
+            <view>
+              <view style="font-size: 16px;font-weight: 500;">{{item.userNickname}}</view>
+              <view style="font-size: 14px;color: #c7c7cd;">{{item.timestamp}}</view>
+            </view>
+            <view style="flex-grow: 1;"></view>
+            <view style="font-size: 13px;color: #c7c7cd;">{{item.views}}浏览 · {{item.voteups}}赞同</view>
+          </view>
+          <view class="detail">{{item.content}}</view>
+          <image class="pre-image" mode="aspectFill" src="{{item.shortcut}}"></image>
+        </view>
+      </view>
+    </block>
+    <!-- BUG:Scroll-View中其他元素中有flex，但如果有一个没有，就会导致所有有flex的只显示有内容的部分 -->
+    <!--<view class="scroll-view_H-item margin-left"></view>-->
+  </scroll-view>
+</view>

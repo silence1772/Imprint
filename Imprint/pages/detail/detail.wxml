@@ -1,0 +1,106 @@
+<view>
+  <!-- 登录遮罩层 -->
+  <view hidden="{{loginLayerHidden}}" class="login-layer">
+    <view class="login-layer-modal">
+      <view style="font-size:18px;height:110rpx;line-height:110rpx;">提示</view>
+      <view style="color:#b6b6b6;font-size:15px;height:90rpx;border-bottom: 1px solid #f4f4f4;">你还未登录，登录后可获得完整体验</view>
+      <view style="display: flex;">
+        <button class="cancel-btn" bind:tap="hiddenLoginLayer">取消</button>
+        <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">一键登录</button>
+      </view>
+    </view>
+  </view>
+  <!-- 视图层 -->
+  <view class="detail">
+    <view class="detail-info">
+      <image class="user-avator" src="{{record.avatar}}"></image>
+      <view>
+        <view style="font-size: 16px;font-weight: 500;">{{record.nickname}}</view>
+        <view style="font-size: 14px;color: #c7c7cd;">{{record.timestamp}}</view>
+      </view>
+      <view style="flex-grow: 1;"></view>
+      <image class="collect-btn" src="{{hasStared?'../resources/collect_2.png':'../resources/collect_1.png'}}" bind:tap="bindCollect"></image>
+      <!--view class="follow-btn">+ 关注</view-->
+    </view>
+    <view class="content">
+      <view style="word-break:break-all">{{record.content}}</view>
+    </view>
+    <view class="image-wrapper">
+      <block wx:for="{{record.piclist}}" wx:key="unique">
+        <image class="image-item" style="width:{{width}}rpx;height:{{width}}rpx;" src="{{item}}" mode="{{width==710?'widthFix':'aspectFill'}}" data-index="{{index}}" bind:tap="previewImage"></image>
+      </block>
+    </view>
+    <view class="vote">
+      <view style="font-size:15px;color:#c7c7cd;text-align:center;" id="up" bind:tap="bindVote">
+        <image class="vote-img" src="{{voteFlag==1?'../resources/support_02.png':'../resources/support_01.png'}}"></image>
+        <view>赞同</view>
+      </view>
+      <view style="font-size:15px;color:#c7c7cd;text-align:center;" id="down" bind:tap="bindVote">
+        <image class="vote-img" src="{{voteFlag==-1?'../resources/support_04.png':'../resources/support_03.png'}}"></image>
+        <view>反对</view>
+      </view>
+      <view wx:if="{{delButton}}" style="font-size:15px;color:#c7c7cd;text-align:center;" bind:tap="bindDelete">
+        <image class="vote-img" src="../resources/delete.png"></image>
+        <view>删除</view>
+      </view>
+    </view>
+  </view>
+
+  <view style="width:100%;height:20rpx;background-color: #f4f4f4;"></view>
+
+  <view class="more">
+    <view class="detail-info">
+      <view style="font-size: 14px;font-weight: 500;">{{commentCnt}}条评论</view>
+      <view style="flex-grow: 1;"></view>
+      <!--<view>按热度∨</view>-->
+    </view>
+    <block wx:for="{{record.comments}}" wx:key="unique">
+      <view class="comment-item">
+        <view>
+          <image class="comment-avatar" src="{{item.avatar}}"></image>
+        </view>
+        <view class="comment" data-id="{{item.Id}}" data-nickname="{{item.nickname}}" bind:tap="bindReply">
+          <view style="font-size: 16px;font-weight: 500;">{{item.nickname}}</view>
+          <view style="font-size: 15px;">{{item.content}}</view>
+          <view class="comment-more" style="font-size: 14px;color: #c7c7cd;">
+            {{item.timestamp}}
+            <view style="flex-grow: 1;"></view>
+            <view>
+              <image style="width: 30rpx;height: 30rpx;" src="../resources/support_01.png"></image>
+            </view>
+          </view>
+          <view class="reply-comment" wx:for="{{item.reply}}" wx:for-item="reply" wx:key="unique">
+            <view>
+              <image class="reply-avatar" src="{{reply.from_avatar}}"></image>
+            </view>
+            <view class="reply">
+              <view style="font-size: 15px;">
+                <text style="font-size: 16px;font-weight: 500;">{{reply.from_nickname}}: </text>{{reply.content}}</view>
+              <view class="comment-more" style="font-size: 14px;color: #c7c7cd;">
+                {{reply.timestamp}}
+                <view style="flex-grow: 1;"></view>
+                <view>
+                  <image style="width: 30rpx;height: 30rpx;" src="../resources/support_01.png"></image>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view style="width:750rpx;height:120rpx;"></view>
+
+  <form bindsubmit="postComment">
+    <view class="footer-extra" style="font-size: 14px;color: #c7c7cd;" wx:if="{{isReply}}">
+      <view>正在回复 {{commentNickname}}</view>
+      <view style="flex-grow: 1;"></view>
+      <view bind:tap="cancelReply">取消回复</view>
+    </view>
+    <view class="footer">
+      <textarea class="input-comment" name="content" value="{{value}}" placeholder="不想聊两句？" bindinput="bindInput" maxlength="-1" focus="{{focu}}" cursor-spacing="20" fixed="true"></textarea>
+      <button class="post-comment" form-type="submit" disabled="{{disable}}">发布</button>
+    </view>
+  </form>
+
+</view>

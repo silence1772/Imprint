@@ -1,0 +1,17 @@
+<view class="header">
+  <view class="info">
+    <open-data class="user-avator" type="userAvatarUrl"></open-data>
+    <view style="font-weight: 500;">
+      <open-data type="userNickName"></open-data>
+    </view>
+  </view>
+</view>
+
+<block wx:for="{{item}}" wx:key="unique">
+  <view class="item" bind:tap="gotoList" data-category="{{index}}">
+    <image class="item-icon" src="{{item.src}}"></image>
+    <text style="font-size:15px;">{{item.text}}</text>
+    <view style="flex-grow: 1;"></view>
+    <view class="right-arrow"></view>
+  </view>
+</block>

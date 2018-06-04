@@ -1,0 +1,171 @@
+.login-layer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  bottom: 0px;
+  left: 0px;
+  z-index:999;
+  background-color:rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-layer-modal {
+  width: 600rpx;
+  height: 300rpx;
+  border-radius: 10rpx;
+  background-color: #fff;
+  text-align: center;
+}
+
+.cancel-btn {
+  width: 300rpx;
+  height: 100rpx;
+  font-size: 18px;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #fff;
+}
+
+.login-btn {
+  width: 300rpx;
+  height: 100rpx;
+  font-size: 18px;
+  color: #1aad19;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #fff;
+}
+
+button[class="cancel-btn"]::after {
+  border: 0;
+  border-radius: 0;
+  border-right: 1px solid #f4f4f4;
+} 
+
+button[class="login-btn"]::after {
+  border: 0;
+  border-radius: 0;
+} 
+
+.header {
+  width: 100%;
+  border-bottom: 2px solid #f4f4f4;
+  box-sizing: border-box;
+  display: flex;
+  padding: 20rpx;
+  align-items: center;
+}
+
+.user-avator {
+  display: block;
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.post-btn {
+  width: 120rpx;
+  height: 60rpx;
+  background: linear-gradient(to right,#fed847,#fed847);
+  border-radius: 40rpx;
+  text-align: center;
+  line-height: 60rpx;
+  font-size: 14px;
+}
+
+.text-input {
+  width: 100%;
+  height: 200rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.image-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10rpx;
+}
+
+.image-item {
+  width: 223.3rpx;
+  height: 223.3rpx;
+  margin: 10rpx;
+  position: relative;
+}
+
+.del {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25%;
+  height: 25%;
+  background-color: #3e3e3e;
+  opacity: 0.3;
+}
+
+.del-positive-line {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  background-color: #d9d9d9;
+  width: 5rpx;
+  height: 30rpx;
+  border-radius: 10rpx;
+  transform: translate(0, -50%) rotate(-45deg);
+}
+
+.del-negative-line {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  background-color: #d9d9d9;
+  width: 5rpx;
+  height: 30rpx;
+  border-radius: 10rpx;
+  transform: translate(0, -50%) rotate(45deg);
+}
+
+.add-image {
+  border: 4rpx dashed #d9d9d9;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.add-horizontal-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #d9d9d9;
+  width: 8rpx;
+  height: 60rpx;
+  border-radius: 10rpx;
+  transform: translate(-50%, -50%);
+}
+
+.add-vertical-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #d9d9d9;
+  width: 60rpx;
+  height: 8rpx;
+  border-radius: 10rpx;
+  transform: translate(-50%, -50%);
+}
+
+.select {
+  display: flex;
+  padding: 20rpx;
+  align-items: center;
+  color: #c7c7cd;
+}
+
+.select-img {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+}

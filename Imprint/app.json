@@ -1,0 +1,16 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/post/post",
+    "pages/user/user",
+    "pages/list/list",
+    "pages/introduce/introduce"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fed847",
+    "navigationBarTitleText": "印迹时空",
+    "navigationBarTextStyle":"black"
+  }
+}

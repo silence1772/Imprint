@@ -1,0 +1,208 @@
+.login-layer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  bottom: 0px;
+  left: 0px;
+  z-index:999;
+  background-color:rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-layer-modal {
+  width: 600rpx;
+  height: 300rpx;
+  border-radius: 10rpx;
+  background-color: #fff;
+  text-align: center;
+}
+.cancel-btn {
+  width: 300rpx;
+  height: 100rpx;
+  font-size: 18px;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #fff;
+}
+.login-btn {
+  width: 300rpx;
+  height: 100rpx;
+  font-size: 18px;
+  color: #1aad19;
+  line-height: 100rpx;
+  text-align: center;
+  background-color: #fff;
+}
+button[class="cancel-btn"]::after {
+  border: 0;
+  border-radius: 0;
+  border-right: 1px solid #f4f4f4;
+} 
+button[class="login-btn"]::after {
+  border: 0;
+  border-radius: 0;
+} 
+
+page {
+  width: 100%;
+  height: 100%;
+}
+.detail {
+  width: 100%;
+  background-color: #fff;
+  padding-bottom: 20rpx;
+}
+.detail-info {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  padding: 20rpx;
+  align-items: center;
+  border-bottom: 2px solid #f4f4f4;
+}
+.user-avator {
+  display: block;
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+}
+.follow-btn {
+  width: 140rpx;
+  height: 50rpx;
+  background: linear-gradient(to right,#7c67fe,#e176fb);
+  border-radius: 40rpx;
+  text-align: center;
+}
+.collect-btn {
+  width: 45rpx;
+  height: 45rpx;
+}
+.content {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20rpx;
+}
+.pic {
+  width: 100%;
+  max-height: 680rpx;
+}
+.image-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10rpx; 
+  box-sizing: border-box;
+}
+.image-item {
+  margin: 10rpx;
+  position: relative;
+}
+.reward {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: linear-gradient(to right,#7c67fe,#e176fb);
+  margin: auto;
+  text-align: center;
+  line-height: 100rpx;
+}
+.vote {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20rpx;
+}
+.vote-img {
+  width: 50rpx;
+  height: 50rpx;
+  margin: auto;
+}
+.more {
+  width: 100%;
+  min-height: 100rpx;
+  background-color: #fff;
+  margin-bottom: 120rpx;
+}
+.footer {
+  width: 100%;
+  height: 100rpx;
+  box-sizing: border-box;
+  padding: 0 0 0 20rpx;
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  bottom: 0;
+  background-color: #fff;
+  border-top: 2px solid #f4f4f4;
+}
+.footer-extra {
+  box-sizing: border-box;
+  width: 100%;
+  height: 80rpx;
+  padding: 20rpx;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  bottom: 100rpx;
+  background-color: #f4f4f4
+}
+.input-comment {
+  width: 600rpx;
+  height: 60rpx;
+  padding: 0 10rpx;
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  border-radius: 10rpx;
+}
+.post-comment {
+  width: 110rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: #fff;
+  font-size: 15px;
+  color: #fed847;
+}
+button[class="post-comment"]::after {
+  border: 0;
+  border-radius: 0;
+} 
+.comment-item {
+  padding: 20rpx 0;
+  display: flex;
+  border-bottom: 2px solid #f4f4f4;
+}
+.comment-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 0 20rpx;
+  border-radius: 50%;
+}
+.comment {
+  flex-grow: 1;
+  padding-right: 20rpx;
+  word-break: break-all;
+}
+.comment-more {
+  display: flex;
+  margin-top: 20rpx;
+}
+.reply-comment {
+  display: flex;
+  border-top: 2px solid #f4f4f4;
+  padding: 20rpx 0;
+  /*background-color: #f4f4f4;*/
+}
+.reply-avatar {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 20rpx;
+  border-radius: 50%;
+}
+.reply {
+  flex-grow: 1;
+  word-break: break-all;
+}

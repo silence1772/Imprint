@@ -1,0 +1,27 @@
+<view class="flex-view">
+  <image src="https://api.silence1772.cn/static/od9XS5AoRlmj-HZtUGKJUk2EHsWM/1527945196_59_wx1a0df4a001bd9060.o6zAJs2nDhOOFuLIYbgjgpKX7Dss.PjACbwkjrA9A0b7c34402a26d754d86a0994ad303e05.png" class="icon"></image>
+</view>
+<view class="flex-view" style="margin-bottom:80rpx;">
+  <view class='font-style'>印迹时空</view>
+</view>
+<view class='font-style'>1、长按显示印迹位置</view>
+<view class="flex-view">
+  <image src="{{imageList.item1}}" mode="widthFix" class="pic"></image>
+</view>
+<view class='font-style'>2、仅附近可见</view>
+<view class="flex-view">
+  <image src="{{imageList.item2}}" mode="widthFix" class="pic"></image>
+</view>
+<view class='font-style'>3、发布新印迹</view>
+<view class="flex-view">
+  <image src="{{imageList.item3}}" mode="widthFix" class="pic"></image>
+</view>
+<view class="flex-view" style="margin-top:80rpx;">
+  <view class='font-style'>联系我们</view>
+</view>
+<view class="flex-view" style="margin-bottom:80rpx;">
+  <view class='font-style'>silence17726@gmail.com</view>
+</view>
+<view class="flex-view">
+  <view style='font-size:15px;color: #c7c7cd;'>Copyright © 2018 silence1772.cn. All rights reserved.</view>
+</view>

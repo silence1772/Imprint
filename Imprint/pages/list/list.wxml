@@ -1,0 +1,23 @@
+<view class="header" style="height:{{upheight}}px;">
+  <view class="header-content">{{count}}条印迹</view>
+</view>
+
+<scroll-view scroll-y="true" style="height:{{downheight}}px;" class="scroll-view_V">
+  <block wx:for="{{cards}}" wx:key="unique">
+    <view class="scroll-view_V-item" data-id="{{item.Id}}" bind:tap="gotoDetail">
+      <view class="card-item">
+        <view class="user-info">
+          <image class="user-avator" src="{{item.avatar}}"></image>
+          <view>
+            <view style="font-size: 16px;font-weight: 500;">{{item.nickname}}</view>
+            <view style="font-size: 14px;color: #c7c7cd;">{{item.timestamp}}</view>
+          </view>
+          <view style="flex-grow: 1;"></view>
+          <view style="font-size: 13px;color: #c7c7cd;">{{item.views}}浏览 · {{item.voteups}}赞同</view>
+        </view>
+        <view class="detail">{{item.content}}</view>
+        <image class="pre-image" mode="aspectFill" src="{{item.shortcut}}"></image>
+      </view>
+    </view>
+  </block>
+</scroll-view>

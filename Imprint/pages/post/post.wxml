@@ -1,0 +1,47 @@
+<view>
+  <!-- 登录遮罩层 -->
+  <view hidden="{{loginLayerHidden}}" class="login-layer">
+    <view class="login-layer-modal">
+      <view style="font-size:18px;height:110rpx;line-height:110rpx;">提示</view>
+      <view style="color:#b6b6b6;font-size:15px;height:90rpx;border-bottom: 1px solid #f4f4f4;">你还未登录，登录后可获得完整体验</view>
+      <view style="display: flex;">
+        <button class="cancel-btn" bind:tap="hiddenLoginLayer">取消</button>
+        <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">一键登录</button>
+      </view>
+    </view>
+  </view>
+  <!-- 视图层 -->
+  <form bindsubmit="post">
+    <view class="header">
+      <open-data class="user-avator" type="userAvatarUrl"></open-data>
+      <view style="font-size: 14px">
+        <open-data type="userNickName"></open-data>
+      </view>
+      <view style="flex-grow: 1;"></view>
+      <button form-type="submit" class="post-btn" disabled="{{canotPost}}">发布</button>
+    </view>
+    <textarea class="text-input" name="content" placeholder="说点什么吧..." maxlength="1000"></textarea>
+  </form>
+  
+  <view class="image-wrapper">
+    <block wx:for="{{imageList}}" wx:key="unique">
+      <image src="{{item}}" mode="aspectFill" class="image-item" data-index="{{index}}" bind:tap="previewImage">
+        <view class="del" data-index="{{index}}" catch:tap="deleteImage">
+          <view class="del-positive-line"></view>
+          <view class="del-negative-line"></view>
+        </view>
+      </image>
+    </block>
+    <view wx:if="{{maxImageCount > 0}}" class="image-item add-image" bind:tap="addImage">
+      <view class="add-horizontal-line"></view>
+      <view class="add-vertical-line"></view>
+    </view>
+  </view>
+
+  <view class="select" bind:tap="selectVisible">
+    <image class="select-img" src="{{visibleFlag==0?'../resources/select_1.png':'../resources/select_2.png'}}"></image>
+    <text>设为仅附近可见</text>
+  </view>
+  <view wx:if="{{visibleFlag==1}}" style="color: #c7c7cd;padding-left: 20rpx;">当其它人到达该印迹200米范围内时方可查看</view>
+
+</view>
