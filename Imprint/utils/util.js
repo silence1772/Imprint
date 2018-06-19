@@ -17,36 +17,36 @@ const formatNumber = n => {
 /**
  * 时间戳转文字描述
  */
-function formatMsgTime(timestamp) {
-  // 获取时间戳时间
-  var dateTime = new Date(timestamp * 1000);
-  // 获取当前时间戳10位
-  var now = Math.round(new Date().getTime() / 1000);
-  var seconds = 0;
-  var timeSpanStr;
-  // 时间差
-  seconds = now - timestamp;
-  // 时间戳格式化
+function formatMsgTime(timespan) {
+  var dateTime = new Date(timespan * 1000);
+
   var year = dateTime.getFullYear();
   var month = dateTime.getMonth() + 1;
   var day = dateTime.getDate();
   var hour = dateTime.getHours();
   var minute = dateTime.getMinutes();
   var second = dateTime.getSeconds();
+  var now = new Date();
+  var now_new = Date.parse(now.toDateString());  //typescript转换写法
 
-  if (seconds <= 60 * 1) {
+  var milliseconds = 0;
+  var timeSpanStr;
+
+  milliseconds = now_new - timespan;
+
+  if (milliseconds <= 1000 * 60 * 1) {
     timeSpanStr = '刚刚';
   }
-  else if (60 * 1 < seconds && seconds <= 60 * 60) {
-    timeSpanStr = Math.round((seconds / (60))) + '分钟前';
+  else if (1000 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60) {
+    timeSpanStr = Math.round((milliseconds / (1000 * 60))) + '分钟前';
   }
-  else if (60 * 60 * 1 < seconds && seconds <= 60 * 60 * 24) {
-    timeSpanStr = Math.round(seconds / (60 * 60)) + '小时前';
+  else if (1000 * 60 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24) {
+    timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60)) + '小时前';
   }
-  else if (60 * 60 * 24 < seconds && seconds <= 60 * 60 * 24 * 15) {
-    timeSpanStr = Math.round(seconds / (60 * 60 * 24)) + '天前';
+  else if (1000 * 60 * 60 * 24 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24 * 15) {
+    timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60 * 24)) + '天前';
   }
-  else if (seconds > 60 * 60 * 24 * 15 && year == now.getFullYear()) {
+  else if (milliseconds > 1000 * 60 * 60 * 24 * 15 && year == now.getFullYear()) {
     timeSpanStr = month + '-' + day + ' ' + hour + ':' + minute;
   } else {
     timeSpanStr = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
